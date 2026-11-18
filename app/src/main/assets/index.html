@@ -1,0 +1,1661 @@
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f6f4a">
+<title>دستیار حرفه‌ای آشپزخانه</title>
+<style>
+:root{
+  --green:#1f6f4a; --green2:#2e8b5f; --greenL:#e6f2ec;
+  --cream:#f6f4ee; --card:#fff; --text:#1b2a22; --muted:#6b7c73;
+  --border:#e2e8e4; --accent:#e8a13a; --radius:16px;
+  --purple:#7c3aed; --purple2:#6d28d9; --purpleL:#f5f3ff; --purpleB:#a78bfa;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{
+  margin:0; padding:0 0 100px;
+  font-family:'Vazirmatn','Noto Naskh Arabic',Tahoma,sans-serif;
+  background:var(--cream); color:var(--text); direction:rtl; line-height:1.85; font-size:16px;
+}
+
+/* ============ هدر زیبا با پس‌زمینه آشپزی ============ */
+header{
+  position:sticky; top:0; z-index:50;
+  background:linear-gradient(135deg, #1f6f4a 0%, #2e8b5f 50%, #1a5d3e 100%);
+  color:#fff; padding:22px 16px 26px;
+  border-radius:0 0 24px 24px;
+  box-shadow:0 6px 22px rgba(31,111,74,.35);
+  text-align:center;
+  overflow:hidden;
+}
+/* الگوی آشپزی در پس‌زمینه هدر */
+header::before{
+  content:'';
+  position:absolute; inset:0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255,255,255,.06) 0%, transparent 40%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120' opacity='0.10'><g fill='%23ffffff'><circle cx='30' cy='30' r='9'/><circle cx='90' cy='30' r='9'/><circle cx='60' cy='60' r='9'/><circle cx='30' cy='90' r='9'/><circle cx='90' cy='90' r='9'/></g></svg>");
+  background-size:auto, auto, 130px 130px;
+  pointer-events:none;
+  opacity:.75;
+}
+header::after{
+  content:'';
+  position:absolute; top:-30px; right:-30px;
+  width:120px; height:120px; border-radius:50%;
+  background:radial-gradient(circle, rgba(232,161,58,.35), transparent 70%);
+  pointer-events:none;
+}
+.header-content{position:relative; z-index:2}
+.header-icon{
+  font-size:46px; line-height:1; margin-bottom:6px;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.3));
+}
+header h1{
+  margin:0; font-size:24px; font-weight:800; line-height:1.3;
+  letter-spacing:.3px;
+  text-shadow:0 2px 8px rgba(0,0,0,.25);
+}
+header p{margin:6px 0 0; font-size:14px; opacity:.85; font-weight:600}
+
+main{padding:16px; max-width:760px; margin:0 auto}
+.card{
+  background:var(--card); border-radius:var(--radius); padding:18px;
+  margin-bottom:16px; box-shadow:0 3px 14px rgba(30,50,40,.08);
+  border:1px solid var(--border);
+}
+.card h2{
+  font-size:17px; margin:0 0 14px; color:var(--green);
+  display:flex; align-items:center; gap:8px; font-weight:800;
+}
+.card h2 .ico{font-size:22px}
+
+/* هشدار توجه بنفش */
+.notice-banner{
+  background:linear-gradient(135deg,var(--purpleL),#ede9fe);
+  border:1.5px solid var(--purpleB);
+  border-radius:14px; padding:14px 16px; margin-bottom:12px;
+  font-size:14.5px; line-height:1.8; color:var(--purple2); font-weight:800;
+}
+.notice-prefix{color:var(--purple); font-weight:900; margin-left:5px; font-size:16px}
+.notice-banner.subscribed{
+  background:linear-gradient(135deg,#ecfdf5,#d1fae5);
+  border-color:#10b981; color:#047857;
+}
+.notice-banner.subscribed .notice-prefix{color:#059669}
+
+.back-btn{
+  width:100%; padding:14px 18px; border:2px solid var(--green);
+  background:#fff; color:var(--green); border-radius:14px;
+  font-family:inherit; font-size:15.5px; font-weight:800; cursor:pointer;
+  margin-bottom:16px; display:flex; align-items:center; justify-content:center;
+  gap:10px; transition:.15s;
+}
+.back-btn:active{transform:scale(.98); background:var(--greenL)}
+
+.cat-chips{display:flex; gap:9px; overflow-x:auto; padding-bottom:12px; scrollbar-width:none; margin-bottom:10px}
+.cat-chips::-webkit-scrollbar{display:none}
+.cat-chip{
+  flex:0 0 auto; padding:9px 18px; border-radius:22px; border:2px solid var(--border);
+  background:#fff; font-family:inherit; font-size:14.5px; font-weight:700;
+  color:var(--muted); cursor:pointer; white-space:nowrap; transition:.15s;
+}
+.cat-chip.active{background:var(--green); color:#fff; border-color:var(--green); box-shadow:0 4px 10px rgba(31,111,74,.25)}
+
+.recipe-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(118px,1fr)); gap:12px}
+.recipe-btn{
+  border:2px solid var(--border); background:linear-gradient(180deg,#fff 0%,#fafbfa 100%);
+  border-radius:16px; padding:18px 6px 12px; text-align:center;
+  cursor:pointer; font-family:inherit; font-size:13px; color:var(--text);
+  transition:.15s; font-weight:700;
+  display:flex; flex-direction:column; align-items:center; gap:4px; min-height:118px;
+  position:relative; overflow:hidden;
+}
+.recipe-btn::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--green),var(--green2)); opacity:0; transition:.2s;
+}
+.recipe-btn.active::before{opacity:1}
+.recipe-btn .em{font-size:38px; line-height:1; margin-bottom:4px; filter:drop-shadow(0 2px 4px rgba(0,0,0,.08))}
+.recipe-btn .nm{font-size:13.5px; line-height:1.4; font-weight:800}
+.recipe-btn .tm{font-size:11px; font-weight:600; color:var(--muted); margin-top:auto; padding-top:4px}
+.recipe-btn.active{border-color:var(--green); background:var(--greenL); color:var(--green)}
+.recipe-btn.active .tm{color:var(--green2)}
+.recipe-btn:active{transform:scale(.96)}
+.recipe-btn.locked{opacity:.65; background:#f9faf9}
+.recipe-btn.locked .nm{color:var(--muted)}
+
+.lock-badge{
+  position:absolute; top:-6px; left:-4px;
+  background:linear-gradient(135deg,#c0392b,#a53125);
+  color:#fff; font-size:11px; font-weight:800;
+  padding:3px 8px; border-radius:8px;
+  box-shadow:0 2px 6px rgba(192,57,43,.4); white-space:nowrap;
+}
+.free-badge{
+  position:absolute; top:-6px; right:-4px;
+  background:linear-gradient(135deg,#2e8b5f,#1f6f4a);
+  color:#fff; font-size:10.5px; font-weight:800;
+  padding:3px 8px; border-radius:8px;
+  box-shadow:0 2px 6px rgba(46,139,95,.4); white-space:nowrap;
+}
+
+.field{margin-bottom:16px}
+.field label{display:block; font-size:14.5px; color:var(--muted); margin-bottom:8px; font-weight:700}
+input[type=number]{
+  width:100%; padding:14px 16px; border:2px solid var(--border); border-radius:14px;
+  font-family:inherit; font-size:18px; font-weight:800; color:var(--text);
+  background:#fbfcfb; text-align:center;
+}
+input:focus{outline:none; border-color:var(--green2); background:#fff}
+.presets{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px}
+.preset{
+  padding:8px 15px; border-radius:22px; border:2px solid var(--border);
+  background:#fff; font-family:inherit; font-size:13.5px; font-weight:700;
+  color:var(--muted); cursor:pointer; transition:.15s; position:relative;
+}
+.preset.active{background:var(--green); color:#fff; border-color:var(--green)}
+.preset.locked{opacity:.55}
+.preset.locked::after{content:' 🔒'; font-size:11px}
+
+.summary{background:linear-gradient(135deg,var(--green),var(--green2)); color:#fff; border:none}
+.summary h2{color:#fff}
+.stat-grid{display:grid; grid-template-columns:1fr 1fr; gap:11px}
+.stat{background:rgba(255,255,255,.15); border-radius:14px; padding:13px 14px}
+.stat .lbl{font-size:12.5px; opacity:.85; display:block; margin-bottom:3px; font-weight:600}
+.stat .val{font-size:16.5px; font-weight:800; line-height:1.4}
+.stat .val.small{font-size:14px; font-weight:700}
+.stat .val.timer{font-variant-numeric:tabular-nums; font-size:17px; letter-spacing:.5px}
+
+.tabs{display:flex; gap:7px; overflow-x:auto; padding:5px 0 12px; scrollbar-width:none; position:sticky; top:0; z-index:20; background:var(--cream); padding-top:10px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto; padding:10px 17px; border-radius:22px; border:2px solid var(--border); background:#fff; font-family:inherit; font-size:14px; font-weight:800; color:var(--muted); cursor:pointer; white-space:nowrap; transition:.15s}
+.tab.active{background:var(--green); color:#fff; border-color:var(--green); box-shadow:0 4px 10px rgba(31,111,74,.25)}
+
+.item{display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 0; border-bottom:1px dashed var(--border)}
+.item:last-child{border-bottom:none}
+.item .nm{flex:1; font-size:15px; display:flex; align-items:center; gap:8px}
+.item .qt{font-weight:800; color:var(--green); font-size:15px; white-space:nowrap; background:var(--greenL); padding:4px 12px; border-radius:9px}
+.item .qty-safe{background:#fdf2e0; color:#a86b12}
+.item input[type=checkbox]{width:22px; height:22px; accent-color:var(--green); flex:0 0 auto; cursor:pointer}
+.item.shop-done .nm, .item.shop-done .qt{opacity:.4; text-decoration:line-through}
+.cat-title{font-size:14px; font-weight:800; color:var(--accent); margin:18px 0 4px; display:flex; align-items:center; gap:7px}
+.cat-title:first-child{margin-top:0}
+.cat-title::before{content:''; width:5px; height:16px; background:var(--accent); border-radius:3px}
+
+/* بنر شروع پخت */
+.cook-start-panel{
+  background:linear-gradient(135deg,#f0fdf4,#dcfce7);
+  border:2px solid #10b981; border-radius:18px;
+  padding:20px; margin-bottom:18px; text-align:center;
+  position:relative; overflow:hidden;
+}
+.cook-start-panel::before{
+  content:'⏱️'; position:absolute; left:-10px; bottom:-10px;
+  font-size:80px; opacity:.08; pointer-events:none;
+}
+.cook-start-panel.active{
+  background:linear-gradient(135deg,var(--purpleL),#ede9fe);
+  border-color:var(--purpleB);
+}
+.cook-total-badge{
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  color:#fff; padding:14px 22px; border-radius:16px;
+  font-weight:900; font-size:20px; display:inline-block;
+  margin-bottom:16px; box-shadow:0 8px 20px rgba(124,58,237,.4);
+  font-variant-numeric:tabular-nums; position:relative; z-index:1;
+}
+.cook-total-badge .lbl{font-size:13px; opacity:.9; display:block; margin-bottom:3px; font-weight:700}
+.cook-start-panel.active .cook-total-badge{
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  box-shadow:0 8px 20px rgba(31,111,74,.4);
+}
+.cook-status-text{
+  font-size:14.5px; font-weight:700; color:#047857; margin-bottom:16px; line-height:1.8;
+  position:relative; z-index:1;
+}
+.cook-start-panel.active .cook-status-text{color:var(--purple2)}
+.btn-start-cook{
+  width:100%; padding:18px; border:none; border-radius:16px;
+  background:linear-gradient(135deg,#10b981,#059669);
+  color:#fff; font-family:inherit; font-size:17px; font-weight:900;
+  cursor:pointer; box-shadow:0 8px 22px rgba(16,185,129,.45);
+  display:flex; align-items:center; justify-content:center; gap:10px;
+  transition:.15s; position:relative; z-index:1;
+}
+.btn-start-cook:active{transform:scale(.97)}
+.btn-start-cook.running{
+  background:linear-gradient(135deg,#dc2626,#b91c1c);
+  box-shadow:0 8px 22px rgba(220,38,38,.4);
+}
+
+/* مراحل */
+.step{display:flex; gap:12px; padding:16px 0; border-bottom:1px solid var(--border); align-items:flex-start}
+.step:last-child{border-bottom:none}
+.step-time{
+  flex:0 0 auto; text-align:center;
+  background:var(--greenL); color:var(--green);
+  border-radius:13px; padding:9px 11px; min-width:96px;
+  font-weight:800; font-size:15px; font-variant-numeric:tabular-nums;
+  line-height:1.3;
+}
+.step-time .rel{
+  display:block; font-size:11px; font-weight:800;
+  color:var(--purple2); background:var(--purpleL);
+  border-radius:6px; padding:3px 5px; margin-bottom:4px;
+}
+.step-time .clock{
+  display:block; font-size:16px; font-weight:900; line-height:1.2;
+}
+.step-time .day{
+  display:block; font-size:10.5px; font-weight:600;
+  color:var(--muted); margin-top:2px;
+}
+.step-time.not-started{
+  background:linear-gradient(135deg,#fef3c7,#fde68a);
+  color:#92400e;
+}
+.step-time.not-started .rel{background:#fff; color:#a86b12}
+.step-time.start-step{
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  color:#fff; box-shadow:0 4px 12px rgba(124,58,237,.35);
+}
+.step-time.start-step .rel{background:rgba(255,255,255,.25); color:#fff}
+.step-time.end-step{
+  background:linear-gradient(135deg,#10b981,#047857);
+  color:#fff; box-shadow:0 4px 12px rgba(16,185,129,.35);
+}
+.step-time.end-step .rel{background:rgba(255,255,255,.25); color:#fff}
+
+.step-body{flex:1; min-width:0}
+.step-title{font-weight:800; font-size:15.5px; margin-bottom:5px; display:flex; align-items:center; gap:7px; flex-wrap:wrap}
+.who{font-size:11px; padding:2px 8px; border-radius:7px; font-weight:800; background:#eef1ef; color:var(--muted)}
+.who.chef{background:#fde8e5; color:#b03a2e}
+.who.help{background:#e3f0fb; color:#1e6ba8}
+.step-desc{font-size:14px; color:var(--muted); line-height:1.75}
+.step input[type=checkbox]{width:24px; height:24px; accent-color:var(--green); margin-top:8px; flex:0 0 auto; cursor:pointer}
+.step.done .step-title, .step.done .step-desc{opacity:.45; text-decoration:line-through}
+
+.progress-wrap{margin-bottom:14px}
+.progress-bar{height:10px; background:var(--border); border-radius:6px; overflow:hidden}
+.progress-fill{height:100%; background:linear-gradient(90deg,var(--green),var(--green2)); width:0; transition:.3s; border-radius:6px}
+.progress-lbl{font-size:13.5px; color:var(--muted); margin-top:6px; font-weight:700}
+
+.helper-card{background:#fbfcfb; border:2px solid var(--border); border-radius:15px; padding:14px 16px; margin-bottom:12px}
+.helper-card h3{margin:0 0 10px; font-size:15px; color:var(--green2); display:flex; gap:7px; align-items:center; font-weight:800}
+.helper-card ul{margin:0; padding-inline-start:20px}
+.helper-card li{font-size:14.5px; margin-bottom:7px; line-height:1.7}
+.helper-card li .t{color:var(--muted); font-size:12.5px; font-weight:800}
+
+.note{background:#fff8ec; border-right:4px solid var(--accent); border-radius:11px; padding:12px 15px; font-size:14.5px; margin-bottom:10px; line-height:1.8}
+.warn{background:#fff0ee; border-right:4px solid #c0392b; border-radius:11px; padding:12px 15px; font-size:14.5px; margin-bottom:10px; line-height:1.8}
+
+.actions{display:flex; gap:12px; margin-top:8px}
+.btn{flex:1; padding:15px; border:none; border-radius:15px; font-family:inherit; font-size:15.5px; font-weight:800; cursor:pointer; transition:.15s; display:flex; align-items:center; justify-content:center; gap:8px}
+.btn:active{transform:scale(.97)}
+.btn-primary{background:var(--green); color:#fff; box-shadow:0 4px 14px rgba(31,111,74,.25)}
+.btn-ghost{background:#fff; color:var(--green); border:2px solid var(--green)}
+.legend{font-size:13px; color:var(--muted); margin-top:12px; line-height:1.8}
+
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+  background:#1b2a22; color:#fff; padding:13px 24px; border-radius:30px;
+  font-size:14.5px; font-weight:700; opacity:0; pointer-events:none; transition:.3s; z-index:2000;
+  max-width:90%; text-align:center; box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+.toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+
+.paywall-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.75);
+  backdrop-filter:blur(6px); z-index:1000;
+  display:flex; align-items:center; justify-content:center;
+  padding:16px; opacity:0; pointer-events:none; transition:opacity .25s;
+}
+.paywall-overlay.show{opacity:1; pointer-events:auto}
+.paywall{
+  background:#fff; border-radius:24px; max-width:440px; width:100%;
+  max-height:92vh; overflow-y:auto; padding:24px 20px 20px;
+  box-shadow:0 24px 70px rgba(0,0,0,.45);
+  transform:scale(.95); transition:transform .25s; position:relative;
+}
+.paywall-overlay.show .paywall{transform:scale(1)}
+.paywall-close{
+  position:absolute; top:12px; left:12px; width:38px; height:38px;
+  border-radius:50%; border:none; background:#f0f2f1; color:#666;
+  font-size:22px; cursor:pointer; display:flex; align-items:center; justify-content:center;
+}
+.paywall-icon{
+  width:78px; height:78px; margin:0 auto 12px;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  border-radius:22px; display:flex; align-items:center; justify-content:center;
+  font-size:42px; box-shadow:0 10px 28px rgba(31,111,74,.35);
+}
+.paywall h2{text-align:center; margin:0 0 6px; font-size:20px; color:var(--text); font-weight:800}
+.paywall .sub{text-align:center; color:var(--muted); font-size:14px; margin-bottom:18px; line-height:1.8}
+.features{background:var(--greenL); border-radius:14px; padding:14px 18px; margin-bottom:16px; list-style:none}
+.features li{font-size:14px; padding:5px 0; display:flex; gap:9px; align-items:flex-start; line-height:1.7}
+.features li::before{content:'✓'; color:var(--green); font-weight:900; flex:0 0 auto}
+.plans{display:flex; flex-direction:column; gap:11px; margin-bottom:16px}
+.plan{
+  border:2px solid var(--border); border-radius:16px; padding:16px;
+  cursor:pointer; display:flex; align-items:flex-start; gap:12px; transition:.15s;
+}
+.plan.selected{border-color:var(--green); background:var(--greenL)}
+.plan-radio{width:24px; height:24px; border-radius:50%; border:2px solid var(--border); flex:0 0 auto; transition:.15s; margin-top:3px}
+.plan.selected .plan-radio{border-color:var(--green); background:var(--green); box-shadow:inset 0 0 0 5px #fff}
+.plan-info{flex:1}
+.plan-info .name{font-weight:800; font-size:16px; display:flex; align-items:center; gap:7px; flex-wrap:wrap; margin-bottom:5px}
+.plan-info .price{color:var(--green); font-size:17px; font-weight:900; margin-bottom:3px}
+.plan-info .desc{color:var(--muted); font-size:13px; line-height:1.7}
+.badge-best{background:var(--accent); color:#fff; font-size:10.5px; padding:3px 8px; border-radius:7px; font-weight:800}
+.btn-buy{
+  width:100%; padding:17px; border:none; border-radius:14px;
+  background:linear-gradient(135deg,var(--green),var(--green2));
+  color:#fff; font-family:inherit; font-size:16px; font-weight:900;
+  cursor:pointer; box-shadow:0 8px 22px rgba(31,111,74,.35);
+}
+.btn-buy:active{transform:scale(.98)}
+.btn-restore{
+  width:100%; padding:11px; border:none; background:transparent;
+  color:var(--muted); font-family:inherit; font-size:13.5px;
+  font-weight:700; cursor:pointer; margin-top:8px;
+}
+.paywall-footer{text-align:center; font-size:12px; color:var(--muted); margin-top:12px; line-height:1.9}
+
+@media print{
+  .no-print{display:none !important}
+  .paywall-overlay{display:none !important}
+  body{background:#fff; padding:0}
+  header{position:static; box-shadow:none; border-radius:0}
+  .card{box-shadow:none; border:1px solid #ddd; page-break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-content">
+    <div class="header-icon">🍲</div>
+    <h1>دستیار حرفه‌ای آشپزخانه</h1>
+    <p>برنامه‌ریزی دقیق پخت برای هر تعداد نفر</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- صفحه انتخاب غذا -->
+  <div id="selectionView">
+    <section class="card no-print">
+      <h2><span class="ico">🍽️</span> غذا را انتخاب کنید</h2>
+
+      <div class="notice-banner" id="noticeBanner">
+        <span class="notice-prefix">توجه:</span>
+        <span id="noticeText">خورشت سبزی و عدس پلو رایگان هستند (تا ۱۰ نفر) — برای بقیه غذاها و تعداد بیشتر از ۱۰ نفر، اشتراک تهیه کنید.</span>
+      </div>
+
+      <div class="cat-chips" id="catChips"></div>
+      <div class="recipe-grid" id="recipeGrid"></div>
+    </section>
+  </div>
+
+  <!-- صفحه جزئیات غذا -->
+  <div id="detailView" style="display:none">
+
+    <button class="back-btn" id="backBtn">
+      <span class="arrow">→</span> بازگشت به لیست غذاها
+    </button>
+
+    <section class="card no-print">
+      <h2><span class="ico">⚙️</span> تنظیمات پخت — <span id="detailRecipeName"></span></h2>
+      <div class="field" style="margin-bottom:0">
+        <label>تعداد نفرات</label>
+        <input type="number" id="servingsInput" min="1" max="500" inputmode="numeric">
+        <div class="presets" id="presets"></div>
+      </div>
+    </section>
+
+    <section class="card summary">
+      <h2><span class="ico">📊</span> خلاصه اجرایی</h2>
+      <div class="stat-grid">
+        <div class="stat"><span class="lbl">تعداد کمک‌آشپز</span><span class="val" id="statHelpers">—</span></div>
+        <div class="stat"><span class="lbl">ظرفیت قابلمه</span><span class="val small" id="statPot">—</span></div>
+        <div class="stat"><span class="lbl">کل زمان لازم</span><span class="val small" id="statTotalTime">—</span></div>
+        <div class="stat"><span class="lbl">وضعیت</span><span class="val timer" id="statStatus">—</span></div>
+      </div>
+    </section>
+
+    <nav class="tabs no-print" id="tabs">
+      <button class="tab" data-tab="timeline">⏰ زمان‌بندی</button>
+      <button class="tab active" data-tab="ingredients">🧂 مواد اولیه</button>
+      <button class="tab" data-tab="shopping">🛒 لیست خرید</button>
+      <button class="tab" data-tab="tasks">👥 وظایف</button>
+      <button class="tab" data-tab="equipment">🍳 تجهیزات</button>
+      <button class="tab" data-tab="notes">💡 نکات</button>
+    </nav>
+
+    <section id="tabContent"></section>
+
+    <div class="actions no-print" style="margin-top:18px">
+      <button class="btn btn-primary" id="shareBtn">📤 اشتراک‌گذاری</button>
+      <button class="btn btn-ghost" id="printBtn">🖨️ چاپ / PDF</button>
+    </div>
+    <div class="actions no-print" style="margin-top:12px">
+      <button class="btn btn-ghost" id="resetBtn">♻️ پاک کردن تیک‌ها</button>
+    </div>
+
+  </div>
+
+</main>
+
+<div class="paywall-overlay" id="paywall">
+  <div class="paywall">
+    <button class="paywall-close" id="paywallClose">×</button>
+    <div class="paywall-icon">👑</div>
+    <h2 id="paywallTitle">این غذا نیاز به اشتراک دارد</h2>
+    <p class="sub" id="paywallSub">خورشت سبزی و عدس پلو رایگان هستند — برای بقیه غذاها اشتراک تهیه کنید</p>
+
+    <ul class="features">
+      <li>دسترسی کامل به همه ۱۲ دستور پخت</li>
+      <li>بدون محدودیت تعداد نفرات (تا ۵۰۰ نفر)</li>
+      <li>زمان‌بندی مرحله به مرحله با شمارش معکوس</li>
+      <li>لیست خرید هوشمند و قابل چاپ</li>
+      <li>تقسیم وظایف کمک‌آشپزها</li>
+      <li>بدون تبلیغات</li>
+    </ul>
+
+    <div class="plans" id="plans">
+      <div class="plan selected" data-plan="yearly">
+        <span class="plan-radio"></span>
+        <div class="plan-info">
+          <div class="name">اشتراک سالانه <span class="badge-best">پیشنهاد ما</span></div>
+          <div class="price">۳۰۰,۰۰۰ تومان / سال</div>
+          <div class="desc">دسترسی کامل به همه غذاها و همه تعداد نفرات برای یک سال</div>
+        </div>
+      </div>
+      <div class="plan" data-plan="lifetime">
+        <span class="plan-radio"></span>
+        <div class="plan-info">
+          <div class="name">اشتراک دائمی</div>
+          <div class="price">۵۰۰,۰۰۰ تومان — یک‌بار برای همیشه</div>
+          <div class="desc">بدون نیاز به تمدید — دسترسی مادام‌العمر</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-buy" id="btnBuy">ادامه و خرید از بازار</button>
+    <button class="btn-restore" id="btnRestore">بازیابی خرید قبلی</button>
+
+    <div class="paywall-footer">
+      با خرید، شرایط استفاده را می‌پذیرید.<br>
+      پرداخت امن از طریق کافه‌بازار
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   ۱) داده‌های دستور پخت (بدون املت)
+   ============================================================ */
+const RECIPES = {
+
+iranian_rice: { id:'iranian_rice', cat:'rice', name:'برنج ایرانی', emoji:'🍚', baseServings:4, potFactor:0.5,
+  ingredients:[
+    {n:'برنج ایرانی', q:600, u:'گرم', c:'برنج و غلات', s:'linear'},
+    {n:'نمک', q:1, u:'قاشق غذاخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'روغن یا کره', q:4, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'},
+    {n:'زعفران', q:0.3, u:'گرم', c:'ادویه و چاشنی', s:'safe'},
+    {n:'نان لواش یا سیب‌زمینی (ته‌دیگ)', q:4, u:'عدد', c:'سایر', s:'linear'}
+  ],
+  steps:[
+    {t:300, w:'کمک', title:'خیساندن برنج', desc:'برنج را با نمک در آب ولرم ۳ تا ۴ ساعت خیس کنید.'},
+    {t:60, w:'کمک', title:'شستن برنج', desc:'چند بار بشویید تا آب صاف شود.'},
+    {t:50, w:'آشپز', title:'جوشاندن آب و نمک', desc:'قابلمه بزرگ آب را با نمک به جوش بیاورید.'},
+    {t:35, w:'آشپز', title:'پختن تا نیم‌پز', desc:'برنج را در آب جوش بریزید، ۶ تا ۸ دقیقه.'},
+    {t:25, w:'کمک', title:'آبکش کردن', desc:'برنج را آبکش و با آب ولرم بشویید.'},
+    {t:20, w:'آشپز', title:'ته‌دیگ و دم کردن', desc:'روغن، نان یا سیب‌زمینی کف قابلمه، شعله کم.'},
+    {t:0, w:'همه', title:'سرو', desc:'در دیس بکشید و با زعفران تزئین کنید.'}
+  ],
+  notes:['برنج ایرانی به خیساندن طولانی نیاز دارد.','برای حجم بالا در دو یا سه قابلمه آبکش کنید.','آبکش کردن را کمی سفت‌تر از دلخواه انجام دهید.']
+},
+
+basmati_rice: { id:'basmati_rice', cat:'rice', name:'برنج هندی', emoji:'🍛', baseServings:4, potFactor:0.5,
+  ingredients:[
+    {n:'برنج باسماتی', q:500, u:'گرم', c:'برنج و غلات', s:'linear'},
+    {n:'نمک', q:1, u:'قاشق غذاخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'روغن یا کره', q:3, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'},
+    {n:'زعفران', q:0.3, u:'گرم', c:'ادویه و چاشنی', s:'safe'},
+    {n:'زیره (اختیاری)', q:1, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'}
+  ],
+  steps:[
+    {t:60, w:'کمک', title:'خیساندن برنج', desc:'باسماتی ۳۰ تا ۶۰ دقیقه کافی است.'},
+    {t:45, w:'کمک', title:'شستن برنج', desc:'تا آب صاف شود.'},
+    {t:35, w:'آشپز', title:'جوشاندن آب', desc:'آب فراوان با نمک به جوش.'},
+    {t:25, w:'آشپز', title:'پختن تا نیم‌پز', desc:'باسماتی سریع می‌پزد، ۴ تا ۶ دقیقه.'},
+    {t:15, w:'کمک', title:'آبکش کردن', desc:'سریع آبکش کنید.'},
+    {t:10, w:'آشپز', title:'دم کردن', desc:'با کره و زعفران دم کنید.'},
+    {t:0, w:'همه', title:'سرو', desc:'در دیس بکشید.'}
+  ],
+  notes:['باسماتی به آبکش سریع نیاز دارد.','نسبت آب بیشتر از برنج ایرانی.','برای حجم بالا چند قابلمه استفاده کنید.']
+},
+
+kobideh: { id:'kobideh', cat:'kebab', name:'کباب کوبیده', emoji:'🍢', baseServings:4, potFactor:0.15,
+  ingredients:[
+    {n:'گوشت چرخ‌کرده با چربی', q:1000, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'پیاز', q:500, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'نمک', q:1.5, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'فلفل سیاه', q:0.5, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'زعفران', q:0.3, u:'گرم', c:'ادویه و چاشنی', s:'safe'},
+    {n:'تخم‌مرغ (برای چسبندگی)', q:1, u:'عدد', c:'سایر', s:'linear'}
+  ],
+  steps:[
+    {t:150, w:'کمک', title:'رنده و آبگیری پیاز', desc:'آب پیاز کامل گرفته شود.'},
+    {t:120, w:'آشپز', title:'ورز دادن گوشت', desc:'۱۵ تا ۲۰ دقیقه ورز دهید.'},
+    {t:60, w:'کمک', title:'استراحت در یخچال', desc:'حداقل ۳۰ دقیقه.'},
+    {t:40, w:'کمک', title:'سیخ‌گیری', desc:'با دست چرب به سیخ بزنید.'},
+    {t:20, w:'آشپز', title:'کباب کردن', desc:'مرتب بچرخانید.'},
+    {t:0, w:'همه', title:'سرو', desc:'با برنج و گوجه کبابی.'}
+  ],
+  notes:['آب پیاز کامل گرفته شود.','گوشت حداقل ۲۰٪ چربی.','برای ۳۰ نفر ۷ تا ۸ کیلو گوشت.']
+},
+
+joojeh: { id:'joojeh', cat:'kebab', name:'جوجه کباب', emoji:'🍗', baseServings:4, potFactor:0.15,
+  ingredients:[
+    {n:'سینه یا ران مرغ', q:1000, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'پیاز', q:400, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'ماست', q:300, u:'گرم', c:'روغن و لبنیات', s:'linear'},
+    {n:'زعفران', q:0.5, u:'گرم', c:'ادویه و چاشنی', s:'safe'},
+    {n:'آبلیمو', q:3, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'نمک، فلفل، زردچوبه', q:2, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'}
+  ],
+  steps:[
+    {t:900, w:'کمک', title:'مزه‌دار کردن (شب قبل)', desc:'مرغ با پیاز، ماست، زعفران و ادویه.'},
+    {t:90, w:'کمک', title:'خرد کردن مرغ', desc:'مکعب ۳ تا ۴ سانتی.'},
+    {t:45, w:'کمک', title:'سیخ‌گیری', desc:'با فاصله بین تکه‌ها.'},
+    {t:20, w:'آشپز', title:'کباب کردن', desc:'مرتب بچرخانید.'},
+    {t:0, w:'همه', title:'سرو', desc:'با برنج و گوجه.'}
+  ],
+  notes:['مزه‌دار کردن شب قبل.','ران آبدارتر از سینه.','برای ۳۰ نفر ۷ تا ۸ کیلو مرغ.']
+},
+
+ghormeh: { id:'ghormeh', cat:'stew', name:'خورشت سبزی', emoji:'🌿', baseServings:4, potFactor:0.4,
+  ingredients:[
+    {n:'گوشت خورشتی', q:400, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'لوبیا قرمز', q:150, u:'گرم', c:'حبوبات', s:'linear'},
+    {n:'سبزی خورشتی پاک‌شده', q:600, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'پیاز', q:400, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'لیمو عمانی', q:6, u:'عدد', c:'ادویه و چاشنی', s:'linear'},
+    {n:'رب گوجه‌فرنگی', q:1, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'روغن', q:4, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'},
+    {n:'زردچوبه', q:1, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'نمک و فلفل', q:1.5, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'}
+  ],
+  steps:[
+    {t:900, w:'کمک', title:'خیساندن لوبیا', desc:'شب قبل، هر ۳-۴ ساعت آب را عوض کنید.'},
+    {t:400, w:'کمک', title:'پاک و شستن سبزی', desc:'ریز خرد و در آبکش خشک شود.'},
+    {t:300, w:'کمک', title:'خرد کردن پیاز', desc:'نگینی ریز.'},
+    {t:270, w:'آشپز', title:'سرخ کردن پیاز', desc:'تا طلایی شدن.'},
+    {t:240, w:'آشپز', title:'تفت دادن گوشت', desc:'با زردچوبه و فلفل.'},
+    {t:225, w:'آشپز', title:'افزودن لوبیا', desc:'۲-۳ دقیقه تفت.'},
+    {t:215, w:'آشپز', title:'افزودن آب و شروع پخت', desc:'شعله ملایم، ۱.۵-۲ ساعت.'},
+    {t:180, w:'کمک', title:'خرد کردن سبزی', desc:'ریز با غذاساز.'},
+    {t:150, w:'آشپز', title:'تفت دادن سبزی', desc:'حیاتی‌ترین مرحله!'},
+    {t:120, w:'آشپز', title:'افزودن سبزی', desc:'هم بزنید.'},
+    {t:90, w:'آشپز', title:'افزودن لیمو و رب', desc:'لیمو سوراخ‌شده.'},
+    {t:60, w:'آشپز', title:'نمک', desc:'مرحله‌ای اضافه کنید.'},
+    {t:30, w:'آشپز', title:'تنظیم طعم', desc:'ترشی و غلظت.'},
+    {t:0, w:'همه', title:'سرو', desc:'در دیس عمیق.'}
+  ],
+  notes:['سبزی جدا و خوب تفت داده شود.','نمک در ۲-۳ مرحله.','برای ۳۰ نفر تفت سبزی در دو تابه.','آب‌غوره در ۲۰ دقیقه آخر.']
+},
+
+gheymeh: { id:'gheymeh', cat:'stew', name:'خورشت قیمه', emoji:'🍛', baseServings:4, potFactor:0.4,
+  ingredients:[
+    {n:'گوشت خورشتی', q:400, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'لپه', q:150, u:'گرم', c:'حبوبات', s:'linear'},
+    {n:'پیاز', q:400, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'رب گوجه‌فرنگی', q:3, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'سیب‌زمینی', q:400, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'لیمو عمانی', q:4, u:'عدد', c:'ادویه و چاشنی', s:'linear'},
+    {n:'روغن', q:5, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'},
+    {n:'زردچوبه و نمک', q:2, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'}
+  ],
+  steps:[
+    {t:480, w:'کمک', title:'خیساندن لپه', desc:'چند ساعت، دو بار آب عوض شود.'},
+    {t:240, w:'کمک', title:'خرد کردن پیاز', desc:'نگینی.'},
+    {t:210, w:'آشپز', title:'سرخ کردن پیاز', desc:'تا طلایی.'},
+    {t:185, w:'آشپز', title:'تفت گوشت', desc:'با زردچوبه.'},
+    {t:170, w:'آشپز', title:'افزودن رب', desc:'رب جدا تفت داده شود.'},
+    {t:160, w:'آشپز', title:'افزودن لپه و آب', desc:'شعله ملایم.'},
+    {t:60, w:'کمک', title:'سرخ کردن سیب‌زمینی', desc:'یا در فر.'},
+    {t:45, w:'آشپز', title:'افزودن لیمو', desc:'لیمو سوراخ‌شده.'},
+    {t:25, w:'آشپز', title:'نمک و تنظیم طعم', desc:'مرحله‌ای.'},
+    {t:5, w:'آشپز', title:'افزودن سیب‌زمینی', desc:'روی خورش.'},
+    {t:0, w:'همه', title:'سرو', desc:'با برنج.'}
+  ],
+  notes:['لپه ۴۵ دقیقه کافی.','سیب‌زمینی در فر سالم‌تر.','رب جدا تفت داده شود.']
+},
+
+fish: { id:'fish', cat:'kebab', name:'ماهی', emoji:'🐟', baseServings:4, potFactor:0.15,
+  ingredients:[
+    {n:'ماهی (قزل‌آلا یا شیر)', q:800, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'پیاز', q:200, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'سیر', q:4, u:'حبه', c:'سبزیجات', s:'linear'},
+    {n:'آرد یا سوخاری', q:100, u:'گرم', c:'سایر', s:'linear'},
+    {n:'زردچوبه', q:1, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'نمک و فلفل', q:1, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'آبلیمو', q:3, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'روغن', q:6, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'}
+  ],
+  steps:[
+    {t:180, w:'کمک', title:'پاک کردن ماهی', desc:'فلس و شکم.'},
+    {t:150, w:'کمک', title:'مزه‌دار کردن', desc:'پیاز، سیر، آبلیمو، زردچوبه.'},
+    {t:30, w:'کمک', title:'آماده کردن پوشش', desc:'آرد یا سوخاری.'},
+    {t:15, w:'آشپز', title:'سرخ کردن', desc:'در روغن داغ.'},
+    {t:0, w:'همه', title:'سرو', desc:'با برنج و لیمو.'}
+  ],
+  notes:['ماهی منجمد را ۱۲ ساعت قبل در یخچال.','برای حجم بالا از فر.','حداقل ۲ تابه بزرگ.']
+},
+
+makaroni: { id:'makaroni', cat:'other', name:'ماکارونی', emoji:'🍝', baseServings:4, potFactor:0.35,
+  ingredients:[
+    {n:'ماکارونی خشک', q:500, u:'گرم', c:'برنج و غلات', s:'linear'},
+    {n:'گوشت چرخ‌کرده', q:400, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'پیاز', q:300, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'رب گوجه‌فرنگی', q:4, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'سس کچاپ', q:3, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'روغن', q:5, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'},
+    {n:'ادویه', q:1.5, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'سیب‌زمینی', q:300, u:'گرم', c:'سبزیجات', s:'linear'}
+  ],
+  steps:[
+    {t:180, w:'کمک', title:'خرد کردن پیاز', desc:'نگینی.'},
+    {t:150, w:'آشپز', title:'تفت پیاز و گوشت', desc:'پیاز طلایی.'},
+    {t:130, w:'آشپز', title:'افزودن رب و سس', desc:'رب جدا تفت.'},
+    {t:90, w:'کمک', title:'پخت ماکارونی', desc:'در آب جوش با نمک.'},
+    {t:60, w:'آشپز', title:'آبکش کردن', desc:'کمی روغن.'},
+    {t:40, w:'آشپز', title:'لایه‌چینی', desc:'در سینی فر.'},
+    {t:20, w:'آشپز', title:'پخت نهایی', desc:'شعله کم یا فر ۱۸۰.'},
+    {t:0, w:'همه', title:'سرو', desc:'برش بزنید.'}
+  ],
+  notes:['سینی فر برای حجم بالا.','ماکارونی سفت‌تر آبکش.','۳۰ نفر ۳.۵-۴ کیلو ماکارونی.']
+},
+
+tahchin: { id:'tahchin', cat:'rice', name:'ته چین', emoji:'🥘', baseServings:4, potFactor:0.5,
+  ingredients:[
+    {n:'برنج ایرانی', q:600, u:'گرم', c:'برنج و غلات', s:'linear'},
+    {n:'مرغ', q:600, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'ماست', q:500, u:'گرم', c:'روغن و لبنیات', s:'linear'},
+    {n:'تخم‌مرغ', q:3, u:'عدد', c:'سایر', s:'linear'},
+    {n:'زعفران', q:0.5, u:'گرم', c:'ادویه و چاشنی', s:'safe'},
+    {n:'پیاز', q:200, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'کره', q:100, u:'گرم', c:'روغن و لبنیات', s:'linear'},
+    {n:'زرشک', q:100, u:'گرم', c:'خشکبار', s:'linear'},
+    {n:'ادویه', q:1, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'}
+  ],
+  steps:[
+    {t:300, w:'کمک', title:'خیساندن برنج', desc:'۳-۴ ساعت با نمک.'},
+    {t:210, w:'آشپز', title:'پختن مرغ', desc:'با پیاز و زعفران.'},
+    {t:120, w:'کمک', title:'آبکش کردن برنج', desc:'کمی سفت‌تر.'},
+    {t:90, w:'آشپز', title:'مایه ماست', desc:'ماست، زعفران، تخم‌مرغ، روغن.'},
+    {t:75, w:'آشپز', title:'مخلوط کردن برنج', desc:'آرام.'},
+    {t:65, w:'آشپز', title:'دم کردن', desc:'۶۰ دقیقه شعله کم.'},
+    {t:20, w:'کمک', title:'تفت زرشک', desc:'۱-۲ دقیقه.'},
+    {t:0, w:'همه', title:'سرو', desc:'برش بزنید.'}
+  ],
+  notes:['ماست فراوان.','دم ۶۰ دقیقه الزامی.','دو-سه قابلمه با شعله‌پخش‌کن.']
+},
+
+adas: { id:'adas', cat:'rice', name:'عدس پلو', emoji:'🌾', baseServings:4, potFactor:0.5,
+  ingredients:[
+    {n:'برنج ایرانی', q:600, u:'گرم', c:'برنج و غلات', s:'linear'},
+    {n:'عدس', q:200, u:'گرم', c:'حبوبات', s:'linear'},
+    {n:'گوشت چرخ‌کرده', q:300, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'پیاز', q:300, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'کشمش', q:100, u:'گرم', c:'خشکبار', s:'linear'},
+    {n:'زعفران', q:0.3, u:'گرم', c:'ادویه و چاشنی', s:'safe'},
+    {n:'دارچین و زیره', q:1, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'روغن', q:5, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'},
+    {n:'نمک', q:1, u:'قاشق غذاخوری', c:'ادویه و چاشنی', s:'safe'}
+  ],
+  steps:[
+    {t:300, w:'کمک', title:'خیساندن برنج', desc:'با نمک.'},
+    {t:180, w:'کمک', title:'پخت عدس', desc:'جدا، نرم ولی له نشود.'},
+    {t:150, w:'کمک', title:'خرد کردن پیاز', desc:'نگینی.'},
+    {t:130, w:'آشپز', title:'تفت پیاز و گوشت', desc:'پیاز طلایی.'},
+    {t:110, w:'کمک', title:'آبکش برنج', desc:''},
+    {t:95, w:'آشپز', title:'لایه‌چینی', desc:'و دم کردن.'},
+    {t:40, w:'کمک', title:'تفت کشمش', desc:'روغن کم.'},
+    {t:20, w:'آشپز', title:'افزودن زعفران', desc:''},
+    {t:0, w:'همه', title:'سرو', desc:''}
+  ],
+  notes:['عدس جدا.','دو قابلمه برای حجم بالا.','کشمش آخر با روغن کم.']
+},
+
+abgoosht: { id:'abgoosht', cat:'other', name:'آبگوشت', emoji:'🍲', baseServings:4, potFactor:0.45,
+  ingredients:[
+    {n:'گوشت با استخوان', q:1000, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'پیاز', q:300, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'سیب‌زمینی', q:400, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'هویج', q:300, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'لوبیا سبز', q:200, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'رب گوجه‌فرنگی', q:2, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'لیمو عمانی', q:4, u:'عدد', c:'ادویه و چاشنی', s:'linear'},
+    {n:'ادویه', q:1.5, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'},
+    {n:'روغن', q:3, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'}
+  ],
+  steps:[
+    {t:240, w:'کمک', title:'خرد کردن سبزیجات', desc:'همه.'},
+    {t:180, w:'آشپز', title:'تفت پیاز', desc:'طلایی.'},
+    {t:150, w:'آشپز', title:'تفت گوشت', desc:'با زردچوبه.'},
+    {t:130, w:'آشپز', title:'آب و رب', desc:'بجوشد.'},
+    {t:60, w:'کمک', title:'افزودن سبزیجات', desc:''},
+    {t:30, w:'آشپز', title:'افزودن لیمو', desc:''},
+    {t:15, w:'آشپز', title:'تنظیم طعم', desc:''},
+    {t:0, w:'همه', title:'سرو', desc:'کاسه بزرگ.'}
+  ],
+  notes:['حداقل ۲ ساعت بپزد.','دو قابلمه برای ۳۰ نفر.','سبزیجات نیمه دوم.']
+},
+
+bademjan: { id:'bademjan', cat:'stew', name:'خورشت بادمجان', emoji:'🍆', baseServings:4, potFactor:0.4,
+  ingredients:[
+    {n:'گوشت خورشتی', q:400, u:'گرم', c:'گوشت و مرغ', s:'linear'},
+    {n:'بادمجان', q:1000, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'پیاز', q:300, u:'گرم', c:'سبزیجات', s:'linear'},
+    {n:'لپه', q:100, u:'گرم', c:'حبوبات', s:'linear'},
+    {n:'رب گوجه‌فرنگی', q:2, u:'قاشق غذاخوری', c:'سایر', s:'safe'},
+    {n:'لیمو عمانی', q:4, u:'عدد', c:'ادویه و چاشنی', s:'safe'},
+    {n:'روغن', q:8, u:'قاشق غذاخوری', c:'روغن و لبنیات', s:'safe'},
+    {n:'ادویه', q:1, u:'قاشق چایخوری', c:'ادویه و چاشنی', s:'safe'}
+  ],
+  steps:[
+    {t:400, w:'کمک', title:'خیساندن لپه', desc:''},
+    {t:200, w:'کمک', title:'آماده‌سازی بادمجان', desc:'حلقه‌حلقه با نمک ۳۰ دقیقه.'},
+    {t:120, w:'کمک', title:'خرد کردن پیاز', desc:''},
+    {t:90, w:'آشپز', title:'تفت پیاز و گوشت', desc:''},
+    {t:75, w:'آشپز', title:'افزودن لپه و آب', desc:''},
+    {t:50, w:'کمک', title:'سرخ کردن بادمجان', desc:'در فر سالم‌تر.'},
+    {t:30, w:'آشپز', title:'افزودن بادمجان', desc:''},
+    {t:15, w:'آشپز', title:'چاشنی', desc:''},
+    {t:0, w:'همه', title:'سرو', desc:''}
+  ],
+  notes:['بادمجان در فر سالم‌تر.','نیمه آخر اضافه کنید.','۳۰ نفر ۷-۸ کیلو بادمجان خام.']
+}
+
+};
+
+const CATEGORIES = [
+  {id:'all', label:'همه'},
+  {id:'rice', label:'پلو و چلو'},
+  {id:'stew', label:'خورشت'},
+  {id:'kebab', label:'کباب و پروتئین'},
+  {id:'other', label:'سایر'}
+];
+
+/* ============================================================
+   ۲) محدودیت‌ها
+   ============================================================ */
+const FREE_RECIPES = ['ghormeh', 'adas'];
+const FREE_SERVINGS_LIMIT = 10;
+const DAY = 24 * 3600 * 1000;
+
+/* ============================================================
+   ۳) ذخیره‌سازی
+   ============================================================ */
+const STORAGE_KEY = 'ashpazkhane_v9';
+const SUB_KEY = 'ashpazkhane_sub_v8';
+
+function b64enc(s){ return btoa(unescape(encodeURIComponent(JSON.stringify(s)))); }
+function b64dec(s){ return JSON.parse(decodeURIComponent(escape(atob(s)))); }
+
+const MultiStore = {
+  keys: [SUB_KEY, '_x1', '_x2'],
+  save(obj){
+    const enc = b64enc(obj);
+    this.keys.forEach(k => { try { localStorage.setItem(k, enc); } catch(e){} });
+    try { document.cookie = `_apz=${enc};max-age=31536000;path=/;SameSite=Strict`; } catch(e){}
+  },
+  load(){
+    for (const k of this.keys){
+      try {
+        const v = localStorage.getItem(k);
+        if (v) return b64dec(v);
+      } catch(e){}
+    }
+    try {
+      const c = document.cookie.split('; ').find(x => x.startsWith('_apz='));
+      if (c) return b64dec(c.split('=')[1]);
+    } catch(e){}
+    return null;
+  }
+};
+
+let sub = { isSubscribed: false, expiresAt: null, planId: null };
+
+let state = {
+  recipeId:'ghormeh',
+  category:'all',
+  servings:4,
+  activeTab:'ingredients',
+  checks:{},
+  shopChecks:{},
+  cookStartedAt: null
+};
+
+function loadSub(){
+  const saved = MultiStore.load();
+  if (saved){
+    sub = Object.assign(sub, saved);
+    if (sub.isSubscribed && sub.expiresAt && Date.now() > sub.expiresAt && sub.planId !== 'lifetime'){
+      sub.isSubscribed = false;
+      sub.expiresAt = null;
+      sub.planId = null;
+    }
+    saveSub();
+  }
+}
+function saveSub(){ MultiStore.save(sub); }
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw){
+      const s = JSON.parse(raw);
+      state = Object.assign(state, s);
+      if (!RECIPES[state.recipeId]) state.recipeId = 'ghormeh';
+    }
+  } catch(e){}
+}
+function saveState(){
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+}
+
+/* ============================================================
+   ۴) منطق دسترسی
+   ============================================================ */
+function isFreeRecipe(id){ return FREE_RECIPES.includes(id); }
+function canAccessRecipe(id){
+  if (sub.isSubscribed) return true;
+  return isFreeRecipe(id);
+}
+function canSetServings(n){
+  if (sub.isSubscribed) return true;
+  return n <= FREE_SERVINGS_LIMIT;
+}
+
+/* ============================================================
+   ۵) Helpers
+   ============================================================ */
+const FA = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+const toFa = n => String(n).replace(/\d/g, d => FA[+d]);
+
+function fmtQty(qty, unit){
+  let v = qty, u = unit;
+  if (unit==='گرم' && qty >= 1000){ v = qty/1000; u = 'کیلوگرم'; }
+  else if (unit==='قاشق چایخوری' && qty >= 3){ v = qty/3; u = 'قاشق غذاخوری'; }
+  let s;
+  if (v >= 100) s = Math.round(v/5)*5;
+  else if (v >= 10) s = Math.round(v);
+  else if (v >= 1) s = Math.round(v*2)/2;
+  else s = Math.round(v*10)/10;
+  return toFa(s) + ' ' + u;
+}
+
+function fmtDuration(minutes){
+  const m = Math.round(minutes);
+  if (m < 60) return toFa(m) + ' دقیقه';
+  const h = Math.floor(m / 60);
+  const rm = m % 60;
+  if (rm === 0) return toFa(h) + ' ساعت';
+  return toFa(h) + ' ساعت و ' + toFa(rm) + ' دقیقه';
+}
+
+function scaledQty(item, ratio){
+  return item.s === 'safe' ? item.q * Math.pow(ratio, 0.85) : item.q * ratio;
+}
+
+const getRecipe = () => RECIPES[state.recipeId];
+function totalMinutesOf(recipe){
+  return Math.max(...recipe.steps.map(s => s.t));
+}
+function stepOffset(t){ return totalMinutesOf(getRecipe()) - t; }
+
+function helperInfo(n){
+  if (n <= 6)   return {n:0, text:'نیازی به کمک نیست'};
+  if (n <= 15)  return {n:1, text:'۱ کمک‌آشپز'};
+  if (n <= 30)  return {n:2, text:'۲ کمک‌آشپز'};
+  if (n <= 60)  return {n:3, text:'۳ کمک‌آشپز'};
+  if (n <= 100) return {n:4, text:'۴ کمک‌آشپز'};
+  if (n <= 150) return {n:5, text:'۵ کمک‌آشپز'};
+  if (n <= 250) return {n:6, text:'۶ کمک‌آشپز'};
+  if (n <= 400) return {n:8, text:'۸ کمک‌آشپز'};
+  return {n:10, text:'۱۰ کمک‌آشپز (تیم حرفه‌ای)'};
+}
+
+function potInfo(n, factor){
+  const L = Math.max(4, n * (factor || 0.4));
+  if (L > 100) return `⚠️ دیگ صنعتی بزرگ (${toFa(Math.ceil(L/10)*10)} لیتر) + تیم`;
+  if (L > 50)  return `دیگ صنعتی (${toFa(Math.ceil(L/10)*10)} لیتر)`;
+  if (L > 40)  return `دیگ صنعتی (${toFa(Math.ceil(L))} لیتر)`;
+  if (L > 20)  return `${toFa(Math.ceil(L/5)*5)} لیتر — دو قابلمه بزرگ`;
+  if (L > 8)   return `${toFa(Math.ceil(L/5)*5)} لیتر — یا دو قابلمه ${toFa(Math.ceil(L/10)*5)} لیتری`;
+  return `یک قابلمه ${toFa(Math.ceil(L/2)*2)} لیتری`;
+}
+
+function cookStartDate(){ return state.cookStartedAt ? new Date(state.cookStartedAt) : null; }
+function stepClock(tBeforeEnd){
+  const start = cookStartDate();
+  if (!start) return null;
+  return new Date(start.getTime() + stepOffset(tBeforeEnd) * 60000);
+}
+function fmtClock(d){
+  return toFa(String(d.getHours()).padStart(2,'0')) + ':' + toFa(String(d.getMinutes()).padStart(2,'0'));
+}
+function dayLabelFromStart(d){
+  const s = cookStartDate();
+  if (!s) return '';
+  const sd = new Date(s.getFullYear(), s.getMonth(), s.getDate());
+  const dd = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const diff = Math.round((dd - sd) / 86400000);
+  if (diff === 0) return '';
+  if (diff === 1) return 'فردا';
+  if (diff === 2) return 'پس‌فردا';
+  return toFa(diff) + ' روز بعد';
+}
+
+const checkKey = i => state.recipeId + '_' + i;
+const shopKey  = n => state.recipeId + ':' + n;
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._tm);
+  t._tm = setTimeout(()=> t.classList.remove('show'), 2400);
+}
+
+/* ============================================================
+   ۶) صفحه‌بندی
+   ============================================================ */
+function showSelection(){
+  document.getElementById('selectionView').style.display = 'block';
+  document.getElementById('detailView').style.display = 'none';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderNotice();
+  renderRecipeGrid();
+}
+
+function showDetail(){
+  document.getElementById('selectionView').style.display = 'none';
+  document.getElementById('detailView').style.display = 'block';
+  document.getElementById('detailRecipeName').textContent = getRecipe().name;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  renderAll();
+}
+
+/* ============================================================
+   ۷) Paywall
+   ============================================================ */
+let selectedPlan = 'yearly';
+let pendingRecipeId = null;
+
+function showPaywall(title, subtitle){
+  document.getElementById('paywallTitle').textContent = title || 'این غذا نیاز به اشتراک دارد';
+  document.getElementById('paywallSub').textContent = subtitle || 'خورشت سبزی و عدس پلو رایگان هستند — برای بقیه غذاها اشتراک تهیه کنید';
+  document.getElementById('paywall').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function hidePaywall(){
+  document.getElementById('paywall').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+const PaymentBridge = {
+  async purchase(planId){
+    if (window.Android && typeof window.Android.purchase === 'function'){
+      try { window.Android.purchase(planId); return 'pending'; }
+      catch(e){ return 'failed'; }
+    }
+    return 'unavailable';
+  },
+  async restore(){
+    if (window.Android && typeof window.Android.restore === 'function'){
+      try { window.Android.restore(); return 'pending'; }
+      catch(e){ return 'failed'; }
+    }
+    return 'unavailable';
+  }
+};
+
+window.onPurchaseSuccess = function(data){
+  const planId = (data && data.planId) || 'yearly';
+  sub.isSubscribed = true;
+  sub.planId = planId;
+  if (planId === 'lifetime') sub.expiresAt = null;
+  else sub.expiresAt = Date.now() + 365 * DAY;
+  saveSub();
+
+  const wasPending = pendingRecipeId;
+  if (pendingRecipeId){
+    state.recipeId = pendingRecipeId;
+    pendingRecipeId = null;
+    saveState();
+  }
+  hidePaywall();
+  renderAll();
+  if (wasPending) showDetail();
+  showToast('👑 اشتراک فعال شد — دسترسی کامل');
+};
+
+window.onPurchaseFailed = function(reason){
+  const msg = reason === 'user_cancelled'
+    ? 'خرید لغو شد'
+    : reason === 'not_connected'
+    ? 'اتصال به بازار برقرار نشد — بازار را نصب و به‌روز کن'
+    : 'خرید ناموفق: ' + (reason || 'خطای نامشخص');
+  showToast(msg);
+};
+
+window.onPurchaseRestored = function(data){ window.onPurchaseSuccess(data); };
+
+/* ============================================================
+   ۸) Render
+   ============================================================ */
+function renderNotice(){
+  const b = document.getElementById('noticeBanner');
+  const t = document.getElementById('noticeText');
+  if (sub.isSubscribed){
+    b.classList.add('subscribed');
+    t.textContent = 'اشتراک شما فعال است — به همه غذاها و همه تعداد نفرات (تا ۵۰۰ نفر) دسترسی دارید.';
+  } else {
+    b.classList.remove('subscribed');
+    t.textContent = 'خورشت سبزی و عدس پلو رایگان هستند (تا ۱۰ نفر) — برای دسترسی به بقیه غذاها و تعداد بیشتر از ۱۰ نفر، اشتراک تهیه کنید.';
+  }
+}
+
+function renderCatChips(){
+  document.getElementById('catChips').innerHTML = CATEGORIES.map(c =>
+    `<button class="cat-chip ${state.category===c.id?'active':''}" data-cat="${c.id}">${c.label}</button>`
+  ).join('');
+}
+
+function renderRecipeGrid(){
+  const all = Object.values(RECIPES);
+  const sorted = [...all].sort((a, b) => {
+    const af = isFreeRecipe(a.id) ? 0 : 1;
+    const bf = isFreeRecipe(b.id) ? 0 : 1;
+    return af - bf;
+  });
+  const list = sorted.filter(r =>
+    state.category === 'all' || r.cat === state.category
+  );
+  document.getElementById('recipeGrid').innerHTML = list.map(r => {
+    const locked = !canAccessRecipe(r.id);
+    const isFree = isFreeRecipe(r.id);
+    let badge = '';
+    if (isFree){
+      badge = `<span class="free-badge">🎁 رایگان</span>`;
+    } else if (locked){
+      badge = `<span class="lock-badge">🔒 اشتراک</span>`;
+    }
+    const totalMin = totalMinutesOf(r);
+    return `<button class="recipe-btn ${r.id===state.recipeId?'active':''} ${locked?'locked':''}" data-recipe="${r.id}">
+      ${badge}
+      <span class="em">${r.emoji}</span>
+      <span class="nm">${r.name}</span>
+      <span class="tm">⏱ ${fmtDuration(totalMin)}</span>
+    </button>`;
+  }).join('');
+}
+
+function renderPresets(){
+  const vals = [2, 4, 8, 10, 15, 30, 50, 100, 200, 500];
+  document.getElementById('presets').innerHTML = vals.map(v => {
+    const locked = !canSetServings(v);
+    return `<button class="preset ${state.servings===v?'active':''} ${locked?'locked':''}" data-preset="${v}">${toFa(v)} نفر</button>`;
+  }).join('');
+}
+
+function renderSummary(){
+  const r = getRecipe();
+  const h = helperInfo(state.servings);
+  const total = totalMinutesOf(r);
+
+  document.getElementById('statHelpers').textContent = h.n === 0 ? 'لازم نیست' : h.text;
+  document.getElementById('statPot').textContent = potInfo(state.servings, r.potFactor);
+  document.getElementById('statTotalTime').textContent = fmtDuration(total);
+
+  const statusEl = document.getElementById('statStatus');
+  if (!state.cookStartedAt){
+    statusEl.textContent = 'شروع نشده';
+    statusEl.classList.remove('past');
+  } else {
+    statusEl.textContent = '—';
+    statusEl.classList.remove('past');
+  }
+  updateCountdown();
+}
+
+const CAT_ORDER = ['گوشت و مرغ','برنج و غلات','حبوبات','سبزیجات','روغن و لبنیات','ادویه و چاشنی','خشکبار','سایر'];
+
+function renderIngredients(){
+  const r = getRecipe();
+  const ratio = state.servings / r.baseServings;
+  const groups = {};
+  r.ingredients.forEach(it => (groups[it.c] = groups[it.c] || []).push(it));
+
+  let html = `<div class="card">
+    <h2><span class="ico">🧂</span> مواد اولیه برای ${toFa(state.servings)} نفر — ${r.name}</h2>`;
+
+  CAT_ORDER.forEach(cat => {
+    if (!groups[cat]) return;
+    html += `<div class="cat-title">${cat}</div>`;
+    groups[cat].forEach(it => {
+      html += `<div class="item">
+        <span class="nm">${it.n}</span>
+        <span class="qt ${it.s==='safe'?'qty-safe':''}">${fmtQty(scaledQty(it, ratio), it.u)}</span>
+      </div>`;
+    });
+  });
+
+  html += `<div class="legend">🟡 مقادیر نارنجی محافظه‌کارانه محاسبه شده‌اند.</div></div>`;
+  document.getElementById('tabContent').innerHTML = html;
+}
+
+function renderTimeline(){
+  const r = getRecipe();
+  const total = totalMinutesOf(r);
+  const started = !!state.cookStartedAt;
+  const totalSteps = r.steps.length;
+  const done = r.steps.filter((_,i)=> state.checks[checkKey(i)]).length;
+  const pct = Math.round(done/totalSteps*100);
+
+  let html = `<div class="cook-start-panel ${started?'active':''}">`;
+
+  if (!started){
+    html += `
+      <div class="cook-total-badge">
+        <span class="lbl">کل زمان لازم برای پخت</span>
+        ${fmtDuration(total)}
+      </div>
+      <div class="cook-status-text">
+        با زدن دکمه شروع، برنامه دقیق از همین لحظه محاسبه می‌شود.
+      </div>
+      <button class="btn-start-cook" id="btnStartCook">
+        ▶ شروع پخت
+      </button>
+    `;
+  } else {
+    html += `
+      <div class="cook-total-badge">
+        <span class="lbl">زمان باقی‌مانده تا آماده شدن</span>
+        <span id="countdownMain">—</span>
+      </div>
+      <div class="cook-status-text">
+        پخت در ساعت ${fmtClock(cookStartDate())} شروع شد — پایان تخمینی: ${fmtClock(new Date(state.cookStartedAt + total*60000))}
+      </div>
+      <button class="btn-start-cook running" id="btnStartCook">
+        ⏹ توقف و شروع مجدد
+      </button>
+    `;
+  }
+
+  html += `</div>`;
+
+  html += `<div class="card">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%"></div></div>
+      <div class="progress-lbl">${toFa(done)} از ${toFa(totalSteps)} مرحله انجام شده — ${toFa(pct)}٪</div>
+    </div>
+  </div>`;
+
+  html += `<div class="card">
+    <h2><span class="ico">⏰</span> زمان‌بندی مرحله به مرحله</h2>`;
+
+  r.steps.forEach((s, i) => {
+    const offset = stepOffset(s.t);
+    const clock = stepClock(s.t);
+    const dayLbl = clock ? dayLabelFromStart(clock) : '';
+    const wc = s.w === 'آشپز' ? 'chef' : s.w === 'کمک' ? 'help' : '';
+    const cls = state.checks[checkKey(i)] ? 'done' : '';
+
+    let timeClass = 'not-started';
+    if (started){
+      timeClass = '';
+      if (offset === 0) timeClass = 'start-step';
+      else if (offset === total) timeClass = 'end-step';
+    }
+
+    let relText = '';
+    if (offset === 0) relText = 'شروع';
+    else if (offset === total) relText = 'پایان';
+    else relText = fmtDuration(offset) + ' بعد';
+
+    let clockText;
+    if (started && clock){
+      clockText = fmtClock(clock);
+    } else {
+      clockText = '—';
+    }
+
+    html += `<div class="step ${cls}">
+      <input type="checkbox" data-step="${i}" ${state.checks[checkKey(i)]?'checked':''}>
+      <div class="step-time ${timeClass}">
+        <span class="rel">${relText}</span>
+        <span class="clock">${clockText}</span>
+        ${dayLbl ? `<span class="day">${dayLbl}</span>` : ''}
+      </div>
+      <div class="step-body">
+        <div class="step-title">${s.title} <span class="who ${wc}">${s.w}</span></div>
+        <div class="step-desc">${s.desc}</div>
+      </div></div>`;
+  });
+  html += `</div>`;
+
+  document.getElementById('tabContent').innerHTML = html;
+
+  const btn = document.getElementById('btnStartCook');
+  if (btn){
+    btn.addEventListener('click', () => {
+      if (state.cookStartedAt){
+        if (!confirm('پخت متوقف شود؟ زمان‌بندی پاک می‌شود.')) return;
+        state.cookStartedAt = null;
+        saveState();
+        renderTimeline();
+        renderSummary();
+        showToast('زمان‌بندی پاک شد');
+      } else {
+        state.cookStartedAt = Date.now();
+        saveState();
+        renderTimeline();
+        renderSummary();
+        showToast('پخت شروع شد ✅');
+      }
+    });
+  }
+
+  updateCountdown();
+}
+
+function renderShopping(){
+  const r = getRecipe();
+  const ratio = state.servings / r.baseServings;
+  const groups = {};
+  r.ingredients.forEach(it => (groups[it.c] = groups[it.c] || []).push(it));
+
+  let html = `<div class="card">
+    <h2><span class="ico">🛒</span> لیست خرید — ${r.name}</h2>`;
+
+  CAT_ORDER.forEach(cat => {
+    if (!groups[cat]) return;
+    html += `<div class="cat-title">${cat}</div>`;
+    groups[cat].forEach(it => {
+      const key = shopKey(it.n);
+      const checked = state.shopChecks[key] ? 'checked' : '';
+      const doneCls = state.shopChecks[key] ? 'shop-done' : '';
+      html += `<div class="item ${doneCls}">
+        <label class="nm"><input type="checkbox" data-shop="${it.n}" ${checked}>${it.n}</label>
+        <span class="qt">${fmtQty(scaledQty(it, ratio), it.u)}</span>
+      </div>`;
+    });
+  });
+  html += `</div>`;
+  document.getElementById('tabContent').innerHTML = html;
+}
+
+function renderTasks(){
+  const r = getRecipe();
+  const h = helperInfo(state.servings);
+  const helpSteps = r.steps.filter(s => s.w === 'کمک');
+  const started = !!state.cookStartedAt;
+
+  let html = `<div class="card">
+    <h2><span class="ico">👥</span> تقسیم وظایف — ${r.name}</h2>`;
+
+  if (h.n === 0){
+    html += `<div class="note">برای ${toFa(state.servings)} نفر نیازی به کمک‌آشپز نیست.</div>`;
+  } else {
+    html += `<div class="note">برای ${toFa(state.servings)} نفر، <b>${toFa(h.n)} کمک‌آشپز</b> پیشنهاد می‌شود.</div>`;
+    if (helpSteps.length === 0){
+      html += `<div class="note">این دستور مرحله کمکی ندارد.</div>`;
+    } else {
+      for (let k = 0; k < h.n; k++){
+        const my = helpSteps.filter((_, i) => i % h.n === k);
+        if (my.length === 0) continue;
+        html += `<div class="helper-card"><h3>🧑‍🍳 کمک‌آشپز ${toFa(k+1)}</h3><ul>`;
+        my.forEach(s => {
+          const offset = stepOffset(s.t);
+          let timeStr;
+          if (started){
+            const c = stepClock(s.t);
+            timeStr = c ? fmtClock(c) : '—';
+          } else {
+            timeStr = offset === 0 ? 'شروع' : fmtDuration(offset) + ' بعد';
+          }
+          html += `<li><span class="t">${timeStr} —</span> ${s.title}</li>`;
+        });
+        html += `</ul></div>`;
+      }
+    }
+  }
+
+  const chefSteps = r.steps.filter(s => s.w === 'آشپز');
+  if (chefSteps.length){
+    html += `<div class="cat-title" style="margin-top:18px">📌 وظایف آشپز اصلی</div>`;
+    chefSteps.forEach(s => {
+      const offset = stepOffset(s.t);
+      let timeStr;
+      if (started){
+        const c = stepClock(s.t);
+        timeStr = c ? fmtClock(c) : '—';
+      } else {
+        timeStr = offset === 0 ? 'شروع' : fmtDuration(offset) + ' بعد';
+      }
+      html += `<div class="item"><span class="nm">${s.title}</span>
+        <span class="qt">${timeStr}</span></div>`;
+    });
+  }
+  html += `</div>`;
+  document.getElementById('tabContent').innerHTML = html;
+}
+
+function renderEquipment(){
+  const r = getRecipe();
+  const n = state.servings;
+  const L = Math.max(4, n * (r.potFactor || 0.4));
+
+  const items = [
+    ['قابلمه اصلی', potInfo(n, r.potFactor)],
+    ['تابه برای تفت', n > 15 ? 'حداقل ۲ تابه بزرگ' : 'یک تابه بزرگ'],
+    ['ظرف سرو', n > 20 ? '۲ تا ۳ دیس عمیق' : 'یک دیس عمیق'],
+    ['ترازو دیجیتال', 'با دقت ۱ گرم'],
+    ['غذاساز یا چاقو و تخته', n > 15 ? 'غذاساز برای خرد کردن سریع' : 'چاقو و تخته بزرگ'],
+    ['کفگیر و ملاقه', '۲ عدد از هرکدام'],
+    ['دستکش مقاوم حرارتی', 'برای قابلمه بزرگ'],
+    ['ظرف حمل (اگر بیرون‌بر)', n > 20 ? '۲ تا ۳ ظرف درب‌دار' : 'یک ظرف درب‌دار']
+  ];
+
+  if (L > 30){
+    items.unshift(['⚠️ تجهیزات صنعتی', 'دیگ صنعتی، شعله بزرگ و تیم حرفه‌ای']);
+  }
+
+  let html = `<div class="card">
+    <h2><span class="ico">🍳</span> تجهیزات و ظروف</h2>
+    <div class="note">برای ${toFa(n)} نفر حدود <b>${toFa(Math.ceil(L))} لیتر</b> ظرفیت لازم است.</div>`;
+
+  items.forEach(([t,d]) => {
+    html += `<div class="item"><span class="nm"><b>${t}</b><br>
+      <span style="color:var(--muted);font-size:13px">${d}</span></span></div>`;
+  });
+  html += `</div>`;
+  document.getElementById('tabContent').innerHTML = html;
+}
+
+function renderNotes(){
+  const r = getRecipe();
+  let html = `<div class="card">
+    <h2><span class="ico">💡</span> نکات ${r.name} در حجم بالا</h2>`;
+  r.notes.forEach(n => html += `<div class="note">${n}</div>`);
+
+  html += `<div class="cat-title" style="margin-top:18px">⚠️ هشدارهای عمومی</div>
+    <div class="warn">نمک و ادویه هرگز یک‌جا اضافه نکنید؛ در ۲ تا ۳ مرحله بچشید.</div>
+    <div class="warn">آب را کم‌کم اضافه کنید؛ تبخیر بیشتر است.</div>
+    <div class="warn">قبل از سرو، نمونه بردارید.</div>
+  </div>`;
+  document.getElementById('tabContent').innerHTML = html;
+}
+
+function renderTab(){
+  switch(state.activeTab){
+    case 'ingredients': renderIngredients(); break;
+    case 'timeline':    renderTimeline();    break;
+    case 'shopping':    renderShopping();    break;
+    case 'tasks':       renderTasks();       break;
+    case 'equipment':   renderEquipment();   break;
+    case 'notes':       renderNotes();       break;
+  }
+}
+
+function renderAll(){
+  renderNotice();
+  renderCatChips();
+  renderRecipeGrid();
+  renderPresets();
+  renderSummary();
+  renderTab();
+  document.getElementById('servingsInput').value = state.servings;
+  document.getElementById('detailRecipeName').textContent = getRecipe().name;
+  document.querySelectorAll('.tab').forEach(t =>
+    t.classList.toggle('active', t.dataset.tab === state.activeTab));
+}
+
+function updateCountdown(){
+  const statusEl = document.getElementById('statStatus');
+  const mainEl = document.getElementById('countdownMain');
+
+  if (!state.cookStartedAt){
+    if (statusEl) { statusEl.textContent = 'شروع نشده'; statusEl.classList.remove('past'); }
+    if (mainEl) mainEl.textContent = '—';
+    return;
+  }
+
+  const r = getRecipe();
+  const total = totalMinutesOf(r);
+  const endTime = state.cookStartedAt + total * 60000;
+  const diff = endTime - Date.now();
+
+  if (diff <= 0){
+    if (statusEl){ statusEl.textContent = 'آماده است!'; statusEl.classList.add('past'); }
+    if (mainEl){ mainEl.textContent = 'آماده است!'; mainEl.classList.add('past'); }
+    return;
+  }
+
+  const hh = Math.floor(diff / 3600000);
+  const mm = Math.floor((diff % 3600000) / 60000);
+  const ss = Math.floor((diff % 60000) / 1000);
+  const text = (hh > 0 ? toFa(hh) + ':' : '') + toFa(String(mm).padStart(2,'0')) + ':' + toFa(String(ss).padStart(2,'0'));
+
+  if (statusEl){ statusEl.textContent = text; statusEl.classList.remove('past'); }
+  if (mainEl){ mainEl.textContent = text; mainEl.classList.remove('past'); }
+}
+
+/* ============================================================
+   ۹) Events
+   ============================================================ */
+document.getElementById('catChips').addEventListener('click', e => {
+  const b = e.target.closest('[data-cat]');
+  if (!b) return;
+  state.category = b.dataset.cat;
+  saveState();
+  renderCatChips();
+  renderRecipeGrid();
+});
+
+document.getElementById('recipeGrid').addEventListener('click', e => {
+  const b = e.target.closest('[data-recipe]');
+  if (!b) return;
+  const id = b.dataset.recipe;
+
+  if (!canAccessRecipe(id)){
+    pendingRecipeId = id;
+    showPaywall('این غذا نیاز به اشتراک دارد',
+      'خورشت سبزی و عدس پلو رایگان هستند — برای بقیه غذاها اشتراک تهیه کنید');
+    return;
+  }
+
+  state.recipeId = id;
+  state.activeTab = 'timeline';
+  saveState();
+  showDetail();
+});
+
+document.getElementById('backBtn').addEventListener('click', () => {
+  showSelection();
+});
+
+document.getElementById('presets').addEventListener('click', e => {
+  const b = e.target.closest('[data-preset]');
+  if (!b) return;
+  const v = +b.dataset.preset;
+
+  if (!canSetServings(v)){
+    showPaywall('بیش از ۱۰ نفر نیاز به اشتراک دارد',
+      'در حالت رایگان حداکثر ۱۰ نفر مجاز است — برای تعداد بیشتر، اشتراک تهیه کنید');
+    return;
+  }
+
+  state.servings = v;
+  saveState();
+  renderAll();
+});
+
+document.getElementById('servingsInput').addEventListener('change', e => {
+  let v = parseInt(e.target.value, 10);
+  if (isNaN(v) || v < 1) v = 1;
+  if (v > 500) v = 500;
+
+  if (!canSetServings(v)){
+    e.target.value = FREE_SERVINGS_LIMIT;
+    state.servings = FREE_SERVINGS_LIMIT;
+    saveState();
+    renderSummary();
+    renderTab();
+    showPaywall('بیش از ۱۰ نفر نیاز به اشتراک دارد',
+      'در حالت رایگان حداکثر ۱۰ نفر مجاز است — برای تعداد بیشتر، اشتراک تهیه کنید');
+    return;
+  }
+
+  state.servings = v;
+  saveState();
+  renderPresets();
+  renderSummary();
+  renderTab();
+});
+
+document.getElementById('tabs').addEventListener('click', e => {
+  const b = e.target.closest('[data-tab]');
+  if (!b) return;
+  state.activeTab = b.dataset.tab;
+  saveState();
+  document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t === b));
+  renderTab();
+});
+
+document.getElementById('tabContent').addEventListener('change', e => {
+  const t = e.target;
+  if (t.matches('input[data-step]')){
+    state.checks[checkKey(t.dataset.step)] = t.checked;
+    saveState();
+    renderTimeline();
+  } else if (t.matches('input[data-shop]')){
+    state.shopChecks[shopKey(t.dataset.shop)] = t.checked;
+    saveState();
+    renderShopping();
+  }
+});
+
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if (!confirm('همه تیک‌های این دستور پاک شوند؟')) return;
+  const sp = state.recipeId + '_';
+  const shp = state.recipeId + ':';
+  Object.keys(state.checks).forEach(k => { if (k.startsWith(sp)) delete state.checks[k]; });
+  Object.keys(state.shopChecks).forEach(k => { if (k.startsWith(shp)) delete state.shopChecks[k]; });
+  saveState();
+  renderTab();
+  showToast('تیک‌ها پاک شد ✅');
+});
+
+document.getElementById('paywallClose').addEventListener('click', () => {
+  hidePaywall();
+  pendingRecipeId = null;
+});
+
+document.querySelectorAll('.plan').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.plan').forEach(x => x.classList.remove('selected'));
+    p.classList.add('selected');
+    selectedPlan = p.dataset.plan;
+  });
+});
+
+document.getElementById('btnBuy').addEventListener('click', async () => {
+  const r = await PaymentBridge.purchase(selectedPlan);
+  if (r === 'pending') showToast('در حال اتصال به بازار...');
+  else if (r === 'unavailable') showToast('فقط داخل اپلیکیشن اندروید قابل خرید است');
+  else showToast('خرید ناموفق بود');
+});
+
+document.getElementById('btnRestore').addEventListener('click', async () => {
+  const r = await PaymentBridge.restore();
+  if (r === 'pending') showToast('در حال بازیابی...');
+  else showToast('بازیابی فقط داخل اپ اندروید کار می‌کند');
+});
+
+function buildShareText(){
+  const r = getRecipe();
+  const ratio = state.servings / r.baseServings;
+  const h = helperInfo(state.servings);
+  const total = totalMinutesOf(r);
+
+  let txt = `🍲 ${r.name} برای ${toFa(state.servings)} نفر\n`;
+  txt += `⏱ کل زمان لازم: ${fmtDuration(total)}\n`;
+  txt += `👥 کمک‌آشپز: ${h.n === 0 ? 'لازم نیست' : h.text}\n\n`;
+  txt += `── مواد اولیه ──\n`;
+  r.ingredients.forEach(it => {
+    txt += `• ${it.n}: ${fmtQty(scaledQty(it, ratio), it.u)}\n`;
+  });
+  txt += `\n── زمان‌بندی ──\n`;
+  r.steps.forEach(s => {
+    const offset = stepOffset(s.t);
+    let timeStr;
+    if (state.cookStartedAt){
+      const c = stepClock(s.t);
+      timeStr = c ? fmtClock(c) : '—';
+    } else {
+      timeStr = offset === 0 ? 'شروع' : fmtDuration(offset) + ' بعد';
+    }
+    txt += `• ${timeStr} — ${s.title}\n`;
+  });
+  txt += `\nساخته‌شده با «دستیار حرفه‌ای آشپزخانه»`;
+  return txt;
+}
+
+async function shareApp(){
+  const text = buildShareText();
+  if (navigator.share){
+    try { await navigator.share({ title:'برنامه پخت', text }); return; }
+    catch(e){ if (e.name === 'AbortError') return; }
+  }
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('متن کپی شد ✅');
+  } catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('متن کپی شد ✅'); }
+    catch(_){ showToast('کپی نشد'); }
+    document.body.removeChild(ta);
+  }
+}
+document.getElementById('shareBtn').addEventListener('click', shareApp);
+
+/* ============================================================
+   ۱۰) Init
+   ============================================================ */
+loadSub();
+loadState();
+renderAll();
+showSelection();
+setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
